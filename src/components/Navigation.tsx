@@ -10,7 +10,8 @@ import {
   LogOut,
   Church,
   Gift,
-  BookOpen
+  BookOpen,
+  BarChart3
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -49,6 +50,18 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, onViewChange, user
     { id: 'giving', label: 'Giving', icon: Gift },
     { id: 'connect', label: 'Connect', icon: Users },
   ];
+
+  // Admin navigation items
+  const adminItems = [
+    { id: 'admin-dashboard', label: 'Admin Dashboard', icon: BarChart3 },
+    { id: 'admin-members', label: 'Members', icon: Users },
+    { id: 'admin-events', label: 'Events', icon: Calendar },
+    { id: 'admin-financials', label: 'Financials', icon: Gift },
+  ];
+
+  // Check if user is admin
+  const isAdmin = user?.user_metadata?.role === 'admin' || 
+                  user?.app_metadata?.role === 'admin';
 
   return (
     <>
@@ -120,6 +133,32 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, onViewChange, user
               </Button>
             );
           })}
+
+          {/* Admin Section */}
+          {isAdmin && (
+            <>
+              <hr className="my-4" />
+              <div className="mb-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3">
+                  Administration
+                </p>
+              </div>
+              {adminItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Button
+                    key={item.id}
+                    variant={currentView === item.id ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => onViewChange(item.id)}
+                  >
+                    <Icon className="h-4 w-4 mr-3" />
+                    {item.label}
+                  </Button>
+                );
+              })}
+            </>
+          )}
           
           <hr className="my-4" />
           

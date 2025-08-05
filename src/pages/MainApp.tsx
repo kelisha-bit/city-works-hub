@@ -6,6 +6,10 @@ import Dashboard from '@/components/Dashboard';
 import Events from '@/components/Events';
 import SplashScreen from '@/components/SplashScreen';
 import Auth from '@/pages/Auth';
+import AdminDashboard from '@/components/admin/AdminDashboard';
+import AdminMembers from '@/components/admin/AdminMembers';
+import AdminEvents from '@/components/admin/AdminEvents';
+import AdminFinancials from '@/components/admin/AdminFinancials';
 
 const MainApp = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -79,6 +83,15 @@ const MainApp = () => {
             <p className="text-muted-foreground">Coming soon...</p>
           </div>
         );
+      // Admin routes
+      case 'admin-dashboard':
+        return <AdminDashboard />;
+      case 'admin-members':
+        return <AdminMembers />;
+      case 'admin-events':
+        return <AdminEvents />;
+      case 'admin-financials':
+        return <AdminFinancials />;
       default:
         return <Dashboard user={user} />;
     }
