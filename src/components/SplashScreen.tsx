@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Church, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -22,10 +22,14 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
       isVisible ? 'opacity-100' : 'opacity-0'
     }`}>
       <div className="text-center text-primary-foreground">
-        {/* Animated Church Icon */}
+        {/* Animated Church Logo */}
         <div className="relative mb-8">
           <div className="animate-pulse">
-            <Church className="h-24 w-24 mx-auto mb-4" />
+            <img 
+              src="/lovable-uploads/43dd6e19-8b73-4be1-84ce-2ea7ae92f8e6.png" 
+              alt="Greater Works City Church Logo" 
+              className="h-24 w-24 mx-auto mb-4"
+            />
           </div>
           <div className="absolute -top-2 -right-2">
             <Heart className="h-8 w-8 text-accent animate-bounce" />

@@ -19,11 +19,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 45% 15%;
 
-    /* Primary: Deep Spiritual Blue */
-    --primary: 220 45% 25%;
+    /* Primary: Deep Purple from Logo */
+    --primary: 252 100% 24%;
     --primary-foreground: 0 0% 98%;
-    --primary-light: 220 35% 35%;
-    --primary-dark: 220 55% 15%;
+    --primary-light: 252 90% 35%;
+    --primary-dark: 252 100% 15%;
 
     /* Secondary: Soft Blue-Gray */
     --secondary: 215 25% 92%;
@@ -33,11 +33,11 @@
     --muted: 215 20% 95%;
     --muted-foreground: 220 15% 45%;
 
-    /* Accent: Elegant Gold */
-    --accent: 45 85% 55%;
-    --accent-foreground: 220 45% 15%;
-    --accent-light: 45 75% 65%;
-    --accent-dark: 45 95% 45%;
+    /* Accent: Crimson Red from Logo */
+    --accent: 348 83% 47%;
+    --accent-foreground: 0 0% 98%;
+    --accent-light: 348 73% 57%;
+    --accent-dark: 348 93% 37%;
 
     /* Status colors */
     --destructive: 0 75% 55%;
@@ -50,19 +50,19 @@
     /* UI elements */
     --border: 215 20% 88%;
     --input: 215 20% 94%;
-    --ring: 220 45% 25%;
+    --ring: 252 100% 24%;
 
     /* Church-specific gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 45% 25%), hsl(220 35% 35%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 85% 55%), hsl(45 75% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 45% 25%) 0%, hsl(220 35% 35%) 50%, hsl(45 85% 55%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(252 100% 24%), hsl(252 90% 35%));
+    --gradient-red: linear-gradient(135deg, hsl(348 83% 47%), hsl(348 73% 57%));
+    --gradient-hero: linear-gradient(135deg, hsl(252 100% 24%) 0%, hsl(252 90% 35%) 50%, hsl(348 83% 47%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%), hsl(215 25% 96%));
 
     /* Elegant shadows */
-    --shadow-soft: 0 2px 8px hsl(220 45% 25% / 0.08);
-    --shadow-medium: 0 4px 16px hsl(220 45% 25% / 0.12);
-    --shadow-large: 0 8px 32px hsl(220 45% 25% / 0.16);
-    --shadow-gold: 0 4px 16px hsl(45 85% 55% / 0.2);
+    --shadow-soft: 0 2px 8px hsl(252 100% 24% / 0.08);
+    --shadow-medium: 0 4px 16px hsl(252 100% 24% / 0.12);
+    --shadow-large: 0 8px 32px hsl(252 100% 24% / 0.16);
+    --shadow-red: 0 4px 16px hsl(348 83% 47% / 0.2);
 
     /* Spiritual spacing and transitions */
     --transition-gentle: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -97,8 +97,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 252 90% 45%;
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -106,8 +106,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 348 73% 57%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
