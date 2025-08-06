@@ -10,6 +10,10 @@ import AdminDashboard from '@/components/admin/AdminDashboard';
 import AdminMembers from '@/components/admin/AdminMembers';
 import AdminEvents from '@/components/admin/AdminEvents';
 import AdminFinancials from '@/components/admin/AdminFinancials';
+import AdminCommunications from '@/components/admin/AdminCommunications';
+import AdminReports from '@/components/admin/AdminReports';
+import AdminSettings from '@/components/admin/AdminSettings';
+import PrayerRequests from '@/components/PrayerRequests';
 
 const MainApp = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -56,12 +60,7 @@ const MainApp = () => {
           </div>
         );
       case 'prayer':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Prayer Requests</h2>
-            <p className="text-muted-foreground">Coming soon...</p>
-          </div>
-        );
+        return <PrayerRequests />;
       case 'giving':
         return (
           <div className="text-center py-12">
@@ -92,6 +91,12 @@ const MainApp = () => {
         return <AdminEvents />;
       case 'admin-financials':
         return <AdminFinancials />;
+      case 'admin-communications':
+        return <AdminCommunications />;
+      case 'admin-reports':
+        return <AdminReports />;
+      case 'admin-settings':
+        return <AdminSettings />;
       default:
         return <Dashboard user={user} />;
     }
