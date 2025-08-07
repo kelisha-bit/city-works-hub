@@ -53,7 +53,7 @@ const MainApp = () => {
   const renderContent = () => {
     switch (currentView) {
       case 'dashboard':
-        return <Dashboard user={user} />;
+        return <Dashboard user={user} onViewChange={setCurrentView} />;
       case 'events':
         return <Events />;
       case 'sermons':

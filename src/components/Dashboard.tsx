@@ -17,9 +17,10 @@ import {
 
 interface DashboardProps {
   user: any;
+  onViewChange?: (view: string) => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ user }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, onViewChange }) => {
   const todaysScripture = {
     verse: "For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.",
     reference: "Jeremiah 29:11"
@@ -168,7 +169,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
               </div>
             ))}
           </div>
-          <Button variant="outline" className="w-full mt-4">
+          <Button variant="outline" className="w-full mt-4" onClick={() => onViewChange?.('events')}>
             View All Events
           </Button>
         </CardContent>
@@ -182,19 +183,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="worship" className="h-20 flex-col">
+            <Button variant="worship" className="h-20 flex-col" onClick={() => onViewChange?.('giving')}>
               <Gift className="h-6 w-6 mb-2" />
               Give
             </Button>
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => onViewChange?.('sermons')}>
               <Music className="h-6 w-6 mb-2" />
               Sermons
             </Button>
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => onViewChange?.('prayer')}>
               <Heart className="h-6 w-6 mb-2" />
               Prayer
             </Button>
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => onViewChange?.('connect')}>
               <Users className="h-6 w-6 mb-2" />
               Connect
             </Button>
