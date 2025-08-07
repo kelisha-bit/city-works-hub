@@ -157,9 +157,9 @@ const Connect = () => {
                 <Card key={member.id} className="shadow-soft hover:shadow-medium transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3 mb-3">
-                      <Avatar className="h-12 w-12">
+                      <Avatar className="h-16 w-16">
                         <AvatarImage src={member.profile_image_url} />
-                        <AvatarFallback className="bg-gradient-primary text-primary-foreground">
+                        <AvatarFallback className="bg-gradient-primary text-primary-foreground h-16 w-16 text-xl">
                           {getInitials(member.first_name, member.last_name)}
                         </AvatarFallback>
                       </Avatar>

@@ -69,7 +69,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onViewChange }) => {
   ];
 
   const quickStats = {
-    totalDonations: "₦45,000",
+    totalDonations: "GHC45,000",
     prayerRequests: 12,
     upcomingEvents: 3,
     members: 450

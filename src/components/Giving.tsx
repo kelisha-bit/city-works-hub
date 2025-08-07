@@ -142,14 +142,14 @@ const Giving = () => {
         <Card className="shadow-soft">
           <CardContent className="p-4 text-center">
             <DollarSign className="h-8 w-8 mx-auto mb-2 text-success" />
-            <p className="text-2xl font-bold text-success">₦{givingStats.totalGiving.toLocaleString()}</p>
+<p className="text-2xl font-bold text-success">GHC{givingStats.totalGiving.toLocaleString()}</p>
             <p className="text-sm text-muted-foreground">Total Giving</p>
           </CardContent>
         </Card>
         <Card className="shadow-soft">
           <CardContent className="p-4 text-center">
             <TrendingUp className="h-8 w-8 mx-auto mb-2 text-primary" />
-            <p className="text-2xl font-bold text-primary">₦{givingStats.thisMonth.toLocaleString()}</p>
+<p className="text-2xl font-bold text-primary">GHC{givingStats.thisMonth.toLocaleString()}</p>
             <p className="text-sm text-muted-foreground">This Month</p>
           </CardContent>
         </Card>
@@ -177,7 +177,7 @@ const Giving = () => {
           <CardContent className="space-y-4">
             {/* Amount Selection */}
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount (₦)</Label>
+<Label htmlFor="amount">Amount (GHC)</Label>
               <div className="grid grid-cols-3 gap-2 mb-2">
                 {quickAmounts.map((quickAmount) => (
                   <Button
@@ -187,7 +187,7 @@ const Giving = () => {
                     onClick={() => setAmount(quickAmount.toString())}
                     className={amount === quickAmount.toString() ? 'border-primary' : ''}
                   >
-                    ₦{quickAmount}
+GHC{quickAmount}
                   </Button>
                 ))}
               </div>
@@ -270,7 +270,7 @@ const Giving = () => {
               className="w-full"
               variant="hero"
             >
-              {loading ? 'Processing...' : `Donate ₦${amount || '0'}`}
+{loading ? 'Processing...' : `Donate GHC${amount || '0'}`}
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
@@ -303,7 +303,7 @@ const Giving = () => {
                       <div className="flex justify-between items-center">
                         <h4 className="font-semibold text-primary">{goal.name}</h4>
                         <Badge variant="outline">
-                          ₦{(goal.current_amount || 0).toLocaleString()} / ₦{goal.target_amount.toLocaleString()}
+GHC{(goal.current_amount || 0).toLocaleString()} / GHC{goal.target_amount.toLocaleString()}
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">{goal.description}</p>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
-  Calendar, 
+  Calendar as CalendarIcon, 
   Clock, 
   MapPin, 
   Users, 
@@ -13,23 +13,28 @@ import {
   BookOpen,
   UserPlus
 } from 'lucide-react';
+import { Calendar } from '@/components/ui/calendar';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const Events = () => {
-  const [view, setView] = useState<'list' | 'calendar'>('list');
+const [view, setView] = useState<'list' | 'calendar'>('list');
+const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+const [loadingStates, setLoadingStates] = useState<Record<number, boolean>>({});
 
-  const events = [
-    {
-      id: 1,
-      title: "Sunday Worship Service",
-      description: "Join us for an inspiring worship service with powerful music and a life-changing message.",
-      date: "2024-12-08",
-      time: "10:00 AM - 12:00 PM",
-      location: "Main Sanctuary",
-      type: "service",
-      maxAttendees: 500,
-      currentAttendees: 380,
-      image: "/placeholder.svg"
-    },
+const [events, setEvents] = useState([
+  {
+    id: 1,
+    title: "Sunday Worship Service",
+    description: "Join us for an inspiring worship service with powerful music and a life-changing message.",
+    date: "2024-12-08",
+    time: "10:00 AM - 12:00 PM",
+    location: "Main Sanctuary",
+    type: "service",
+    maxAttendees: 500,
+    currentAttendees: 380,
+    image: "/placeholder.svg"
+  },
     {
       id: 2,
       title: "Bible Study: Walking in Faith",
@@ -66,7 +71,7 @@ const Events = () => {
       currentAttendees: 250,
       image: "/placeholder.svg"
     }
-  ];
+  ]);
 
   const getEventIcon = (type: string) => {
     switch (type) {
@@ -108,9 +113,61 @@ const Events = () => {
     });
   };
 
-  const isUpcoming = (dateString: string) => {
-    return new Date(dateString) >= new Date();
-  };
+const isUpcoming = (dateString: string) => {
+  return new Date(dateString) >= new Date();
+};
+
+const handleRSVP = async (eventId: number) => {
+  try {
+    setLoadingStates(prev => ({ ...prev, [eventId]: true }));
+    
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      toast.error('You must be logged in to register for events.');
+      return;
+    }
+
+    // Check if event is at capacity
+    const event = events.find(e => e.id === eventId);
+    if (event && event.currentAttendees >= event.maxAttendees) {
+      toast.error('This event has reached maximum capacity.');
+      return;
+    }
+
+    const { error } = await supabase
+      .from('event_attendance')
+      .insert({ 
+        event_id: eventId,
+        user_id: user.id,
+        registered_at: new Date().toISOString()
+      });
+
+    if (error) {
+      if (error.code === '23505') {
+        toast.error('You are already registered for this event.');
+      } else {
+        console.error('Registration error:', error);
+        toast.error('Registration failed. Please try again.');
+      }
+      return;
+    }
+
+    toast.success('Successfully registered for the event!');
+    setEvents(prevEvents => 
+      prevEvents.map(event => 
+        event.id === eventId 
+          ? { ...event, currentAttendees: event.currentAttendees + 1 } 
+          : event
+      )
+    );
+  } catch (error) {
+    console.error('Error in handleRSVP:', error);
+    toast.error('An unexpected error occurred. Please try again.');
+  } finally {
+    setLoadingStates(prev => ({ ...prev, [eventId]: false }));
+  }
+};
 
   return (
     <div className="space-y-6">
@@ -154,7 +211,7 @@ const Events = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div className="flex items-center space-x-2 text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
+<CalendarIcon className="h-4 w-4" />
                     <span className="text-sm">{formatDate(event.date)}</span>
                   </div>
                   <div className="flex items-center space-x-2 text-muted-foreground">
@@ -189,17 +246,37 @@ const Events = () => {
                 <div className="flex space-x-2">
                   {isUpcoming(event.date) ? (
                     <>
-                      <Button variant="hero" size="sm">
-                        Register / RSVP
+                      <Button 
+                        variant="hero" 
+                        size="sm" 
+                        onClick={() => handleRSVP(event.id)}
+                        disabled={
+                          loadingStates[event.id] || 
+                          event.currentAttendees >= event.maxAttendees
+                        }
+                        className="relative"
+                      >
+                        {loadingStates[event.id] ? (
+                          <>
+                            <span className="opacity-0">Registering...</span>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            </div>
+                          </>
+                        ) : event.currentAttendees >= event.maxAttendees ? (
+                          'Event Full'
+                        ) : (
+                          'Register / RSVP'
+                        )}
                       </Button>
                       <Button variant="outline" size="sm">
                         Add to Calendar
                       </Button>
                     </>
                   ) : (
-                    <Button variant="outline" size="sm">
-                      View Details
-                    </Button>
+<Button variant="outline" size="sm" onClick={() => alert('View details clicked!')}>
+  View Details
+</Button>
                   )}
                 </div>
               </CardContent>
@@ -215,19 +292,14 @@ const Events = () => {
                 Interactive calendar view coming soon! For now, check out the list view above.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="bg-gradient-subtle rounded-lg p-8 text-center">
-                <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                <h3 className="text-lg font-semibold text-primary mb-2">Calendar View</h3>
-                <p className="text-muted-foreground mb-4">
-                  We're working on bringing you a beautiful calendar interface. 
-                  Meanwhile, explore our events in the list view.
-                </p>
-                <Button variant="outline" onClick={() => setView('list')}>
-                  View Event List
-                </Button>
-              </div>
-            </CardContent>
+<CardContent>
+  <Calendar
+    mode="single"
+    selected={selectedDate}
+    onSelect={setSelectedDate}
+    className="rounded-md border"
+  />
+</CardContent>
           </Card>
         </TabsContent>
       </Tabs>
