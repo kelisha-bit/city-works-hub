@@ -14,6 +14,10 @@ import AdminCommunications from '@/components/admin/AdminCommunications';
 import AdminReports from '@/components/admin/AdminReports';
 import AdminSettings from '@/components/admin/AdminSettings';
 import PrayerRequests from '@/components/PrayerRequests';
+import Sermons from '@/components/Sermons';
+import Giving from '@/components/Giving';
+import Connect from '@/components/Connect';
+import UserSettings from '@/components/UserSettings';
 
 const MainApp = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -53,35 +57,15 @@ const MainApp = () => {
       case 'events':
         return <Events />;
       case 'sermons':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Sermons Library</h2>
-            <p className="text-muted-foreground">Coming soon...</p>
-          </div>
-        );
+        return <Sermons />;
       case 'prayer':
         return <PrayerRequests />;
       case 'giving':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Give & Tithe</h2>
-            <p className="text-muted-foreground">Coming soon...</p>
-          </div>
-        );
+        return <Giving />;
       case 'connect':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Connect</h2>
-            <p className="text-muted-foreground">Coming soon...</p>
-          </div>
-        );
+        return <Connect />;
       case 'settings':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Settings</h2>
-            <p className="text-muted-foreground">Coming soon...</p>
-          </div>
-        );
+        return <UserSettings user={user} />;
       // Admin routes
       case 'admin-dashboard':
         return <AdminDashboard />;
